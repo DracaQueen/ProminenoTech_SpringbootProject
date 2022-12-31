@@ -15,7 +15,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter.*;
+import io.swagger.v3.oas.annotations.Parameter;
+
 
 
 
@@ -65,7 +66,7 @@ public interface JeepSalesController {
 @ResponseStatus(code = HttpStatus.OK)
 List<Jeep>fetchJeeps(
    @RequestParam(required = false)
-   String model, 
+   JeepModel model, 
    @RequestParam(required = false)
    String trim);
 //@formatter:on

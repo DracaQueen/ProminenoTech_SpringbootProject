@@ -2,8 +2,9 @@ package com.promineotech.jeep;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.promineotech.ComponetScanMarker;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackageClasses = {ComponetScanMarker.class})
 public class JeepSales {
 
   public static void main(String[] args) {
