@@ -3,6 +3,7 @@ package com.promineotech.jeep.controller;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -26,8 +27,8 @@ import lombok.Getter;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @Sql(scripts = {
-    "classpath:flyaway/migrations/V1.0__Jeep_Schema.sql",
-    "classpath:flyaway/migrations/V1.0__Jeep_Data.sql"},
+    "classpath:flyway/migrations/V1.0__Jeep_Schema.sql",
+    "classpath:flyway/migrations/V1.1__Jeep_Data.sql"},
 config=@SqlConfig(encoding="utf-8"))
 class FetchJeepTest {
   
@@ -52,8 +53,12 @@ class FetchJeepTest {
   // Then  
    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
    
+   List<Jeep> actual = response.getBody();
    List<Jeep> expected = buildExpected();
-   assertThat(response.getBody()).isEqualTo(expected);
+   
+   actual.forEach(jeep -> jeep.setModelPK(null));
+   
+   assertThat(actual).isEqualTo(expected);
   }
 
   protected List<Jeep> buildExpected() {
@@ -78,9 +83,8 @@ class FetchJeepTest {
     
     // @formatter:on
   
-
+    Collections.sort(list);
     return list;
   }
-//INSERT INTO models (model_id, trim_level, num_doors, wheel_size, base_price) VALUES('WRANGLER', 'Sport', 2, 17, 28475.00);
-//INSERT INTO models (model_id, trim_level, num_doors, wheel_size, base_price) VALUES('WRANGLER', 'Sport', 4, 17, 31975.00);
+
 }
