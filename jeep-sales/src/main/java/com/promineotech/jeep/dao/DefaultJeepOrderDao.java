@@ -52,6 +52,7 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
         .orderPK(orderPK)
         .customer(customer)
         .model(jeep)
+        .color(color)
         .engine(engine)
         .tire(tire)
         .options(options)
